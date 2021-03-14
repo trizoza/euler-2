@@ -1,27 +1,22 @@
 const isPrime = (num) => {
-    if (typeof num !== "number") return false
-    if (num < 2) return false
-    const notPrimes = []
-    for (let i = 2; i <= num; i++) {
-        if (i !== num && num%i === 0 && num/1 > 1) notPrimes.push(num)
-        if (notPrimes.length) i = num
+  for (let j = num - 1; j > 1; j -= 1) {
+    if (num % j === 0) {
+      return false;
     }
-    return notPrimes.length ? false : true
-}
+  }
+  return true;
+};
 
-// let check = isPrime(3);
-// console.log(check);
-
-const findPrimes = num => {
-    const primes = []
-    for (let i =2; i <= num; i++) {
-        if (isPrime(i)) {
-            primes.push(i)
-            console.log(i)
-        }
+const findHighestPrimeFactor = (cap) => {
+  const primeDividers = [];
+  for (let i = 3; i <= cap; i += 2) {
+    if (cap % i === 0) {
+      if (!primeDividers.includes(i) && isPrime(i)) primeDividers.push(i);
+      cap = cap / i;
     }
-    console.log(primes)
-    return primes
-}
+  }
+  return primeDividers[primeDividers.length - 1];
+};
 
-const candidates = findPrimes(1000);
+const highest = findHighestPrimeFactor(600851475143);
+console.log("highest ", highest);
